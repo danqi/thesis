@@ -1,0 +1,40 @@
+%!TEX root = ../../thesis.tex
+
+% \section{Introduction}
+
+In the last chapter, we discussed how we built a general-knowledge question-answering system from neural reading comprehension. However, most current QA systems are limited to answering isolated questions, i.e., every time we ask a question, the systems return an answer without the ability to consider any context. In this chapter, we set out to tackle another challenging problem \ti{Conversational Question Answering}, where a machine has to understand a text passage and answer a series of questions that appear in a conversation.
+
+Humans gather information by engaging in conversations involving a series of interconnected questions and answers. For machines to assist in information gathering, it is therefore essential to enable them to answer conversational questions. Figure~\ref{fig:coqa-example} shows a conversation between two humans who are reading a passage, one acting as a questioner and the other as an answerer. In this conversation, every question after the first is dependent on the conversation history. For instance, $Q_5$ \ti{Who?} is only a single word and is impossible to answer without knowing what has already been said. Posing short questions is an effective human conversation strategy, but such questions are really difficult for machines to parse. Therefore, conversational question answering combines the challenges from both dialogue and reading comprehension.
+
+We believe that building systems which are able to answer such conversational questions will play a crucial role in our future conversational AI systems. To approach this problem, we need to build effective \ti{datasets} and conversational QA \ti{models} and we will describe both of them in this chapter.
+
+\begin{figure}[!t]
+\begin{tabular}{p{0.9\columnwidth}}
+\midrule
+Jessica went to sit in her rocking chair. Today was her birthday and she was turning 80. Her granddaughter Annie was coming over in the afternoon and Jessica was very excited to see her. Her daughter Melanie and Melanie's husband Josh were coming as well. Jessica had $\ldots$\\
+\\
+$Q_1$: Who had a birthday? \\
+$A_1$: Jessica \\
+$R_1$: Jessica went to sit in her rocking chair. Today was her birthday and she was turning 80.\\
+\vspace{0em}
+$Q_2$: How old would she be?\\
+$A_2$: 80 \\
+$R_2$: she was turning 80 \\
+\vspace{0em}
+$Q_3$: Did she plan to have any visitors?\\
+$A_3$: Yes \\
+$R_3$: Her granddaughter Annie was coming over \\
+\vspace{0em}
+$Q_4$: How many?\\
+$A_4$: Three \\
+$R_4$: Her granddaughter Annie was coming over in the afternoon and Jessica was very excited to see her. Her daughter Melanie and Melanie's husband Josh were coming as well. \\
+\vspace{0em}
+$Q_5$: Who?\\
+$A_5$: Annie, Melanie and Josh \\
+$R_5$: Her granddaughter Annie was coming over in the afternoon and Jessica was very excited to see her. Her daughter Melanie and Melanie's husband Josh were coming as well.\\
+\bottomrule
+\end{tabular}
+\longcaption{A conversation from \sys{CoQA}}{\label{fig:coqa-example} A conversation from our \sys{CoQA} dataset. Each turn contains a question ($Q_i$), an answer ($A_i$) and a rationale ($R_i$) that supports the answer.}
+\end{figure}
+
+This chapter is organized as follows. We first discuss related work in Section~\ref{sec:coqa-rw} and then we introduce \sys{CoQA}~\cite{reddy2019coqa} in Section~\ref{sec:coqa-dataset}, a \textbf{Co}nversational \textbf{Q}uestion \textbf{A}nswering challenge for measuring the ability of machines to participate in a question-answering style conversation.\footnote{We launch \sys{CoQA} as a challenge to the community at \href{https://stanfordnlp.github.io/coqa/}{https://stanfordnlp.github.io/coqa/}.} Our dataset contains 127k questions with answers, obtained from 8k conversations about text passages from seven diverse domains. We define our task and describe the dataset collection process. We also analyze the dataset in depth and show that conversational questions have challenging phenomena not present in existing reading comprehension datasets, e.g., coreference and pragmatic reasoning. Next we describe several strong conversational and reading comprehension models we built for \sys{CoQA} in Section~\ref{sec:coqa-models} and present experimental results in Section~\ref{sec:coqa-experiments}. Finally, we discuss future work of conversational question answering (Section~\ref{sec:coqa-future}).

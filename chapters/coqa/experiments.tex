@@ -1,0 +1,136 @@
+%!TEX root = ../../thesis.tex
+
+\section{Experiments}
+\label{sec:coqa-experiments}
+
+\subsection{Setup}
+For the \sys{seq2seq} and \sys{PGNet} experiments, we use the \sys{OpenNMT} toolkit \cite{klein2017opennmt}.
+For the reading comprehension experiments, we use the same implementation that we used for \sys{SQuAD}~\cite{chen2017reading}.
+We tune the hyperparameters on the development data: the number of turns to use from the conversation history, the number of layers, number of each hidden units per layer and dropout rate.
+We initialize the word projection matrix with \sys{GloVe} \cite{pennington2014glove} for conversational models and \sys{fastText} \cite{bojanowski2017enriching} for reading comprehension models, based on empirical performance. We update the projection matrix during training in order to learn embeddings for delimiters such as $\mathrm{<}q\mathrm{>}$.
+
+For all the experiments of \sys{seq2seq} and \sys{PGNet}, we use the default settings of \sys{OpenNMT}: 2-layers of LSTMs with $500$ hidden units for both the encoder and the decoder. The models are optimized using SGD, with an initial learning rate of $1.0$ and a decay rate of $0.5$. A dropout rate of $0.3$ is applied to all layers.
+
+For all the reading comprehension experiments, the best configuration we find is 3 layers of LSTMs with $300$ hidden units for each layer. A dropout rate of $0.4$ is applied to all LSTM layers and a dropout rate of $0.5$ is applied to word embeddings.
+
+\subsection{Experimental Results}
+Table~\ref{tab:coqa-results} presents the results of the models on the development and the test data. Considering the results on the test set, the \sys{seq2seq} model performs the worst, generating frequently occurring answers irrespective of whether these answers appear in the passage or not, a well known behavior of conversational models \cite{li2016diversity}. \sys{PGNet} alleviates the frequent response problem by focusing on the vocabulary in the passage and it outperforms \sys{seq2seq} by 17.8 points. However, it still lags behind \sys{Stanford Attentive Reader} by 8.5 points.
+A reason could be that \sys{PGNet} has to memorize the whole passage before answering a question, a huge overhead which \sys{Stanford Attentive Reader} avoids. But \sys{Stanford Attentive Reader} fails miserably in answering questions with free-form answers (see row \textit{Abstractive} in Table ~\ref{tab:error-analysis}).
+When the \sys{Stanford Attentive Reader} is fed into \sys{PGNet}, we empower both \sys{Stanford Attentive Reader} and \sys{PGNet} --- \sys{Stanford Attentive Reader} in producing free-form answers; \sys{PGNet} in focusing on the rationale instead of the passage. This combination outperforms the \sys{PGNet} and the \sys{Stanford Attentive Reader} models by 21.0 and 12.5 points respectively.
+
+\begin{table}
+\small
+\centering
+\begin{tabular}{l | c c c c c | c c |  c}
+\hline
+&  \multicolumn{5}{c|}{\tf{In-domain}} & \multicolumn{2}{c|}{\tf{Out-of-domain}} & \tf{Overall} \\
+&  Children & Literature & Exam & News & Wikipedia & Reddit & Science &  \\
+\hline
+\multicolumn{9}{c}{\tf{Development data}}\\
+\hline
+\sys{seq2seq} & 30.6 & 26.7 & 28.3 & 26.3 & 26.1 & N/A & N/A & 27.5 \\
+\sys{PGNet} & 49.7 & 42.4 & 44.8 & 45.5 & 45.0 & N/A & N/A & 45.4 \\
+\sys{SAR} & 52.4 & 52.6 & 51.4 & 56.8 & 60.3 & N/A & N/A & 54.7 \\
+\sys{Hybrid} & \bf 64.5 & \bf 62.0 & \bf 63.8 & \bf 68.0 & \bf 72.6 & N/A & N/A & \bf 66.2 \\
+\sys{Human} & 90.7 & 88.3 & 89.1 & 89.9 & 90.9 & N/A & N/A  & 89.8 \\
+\hline
+\multicolumn{9}{c}{\tf{Test data}}\\
+\hline
+\sys{seq2seq} & 32.8 & 25.6 & 28.0 & 27.0 & 25.3 & 25.6 & 20.1  & 26.3 \\
+\sys{PGNet} & 49.0 & 43.3 & 47.5 & 47.5 & 45.1 & 38.6 & 38.1  & 44.1 \\
+\sys{SAR} & 46.7 & 53.9 & 54.1 & 57.8 & 59.4 & 45.0 & 51.0 & 52.6 \\
+\sys{Hybrid} & \bf 64.2 & \bf 63.7 & \bf  67.1 & \bf 68.3 & \bf 71.4 & \bf 57.8 & \bf 63.1  & \bf 65.1  \\
+\sys{Human} & 90.2 & 88.4 & 89.8 & 88.6 & 89.9 & 86.7 & 88.1 & 88.8 \\
+\hline
+\end{tabular}
+\longcaption{Models and human performance on \sys{CoQA}}{\label{tab:coqa-results}Models and human performance (F1 score) on the development and the test data. \sys{SAR}: \sys{Stanford Attentive Reader}.}
+\end{table}
+
+\paragraph{Models vs. Humans.}
+The human performance on the test data is 88.8 F1, a strong agreement indicating that the \sys{CoQA}'s questions have concrete answers.
+Our best model is 23.7 points behind humans, suggesting that the task is difficult to accomplish with current models.
+We anticipate that using a state-of-the-art reading comprehension model \cite{devlin2018bert} may improve the results by a few points.
+
+\paragraph{In-domain~vs.~Out-of-domain.}
+All models perform worse on out-of-domain datasets compared to in-domain datasets. The best model drops by 6.6 points. For in-domain results, both the best model and humans find the literature domain harder than the others since literature's vocabulary requires proficiency in English. For out-of-domain results, the Reddit domain is apparently harder. This could be because Reddit requires reasoning on longer passages (see Table~\ref{tab:coqa-domains}).
+
+While humans achieve high performance on children's stories,  models perform poorly, probably due to the fewer training examples in this domain compared to others.\footnote{We collect children's stories from MCTest which contains only 660 passages in total, of which we use 200 stories for development and test.}
+Both humans and models find Wikipedia easy.
+
+\subsection{Error Analysis}
+
+\begin{table}[!t]
+\centering
+\begin{tabular}{p{4cm}ccccc}
+\toprule
+\tf{Type} & \sys{seq2seq} & \sys{PGNet} & \sys{SAR} & \sys{Hybrid} & \sys{Human}\\
+\midrule
+\multicolumn{6}{c}{\tf{Answer Type}} \\
+\midrule
+Answerable & 27.5 & 45.4 & 54.7 & 66.3 & 89.9 \\
+Unanswerable & 33.9 & 38.2 & 55.0 & 51.2 & 72.3 \\
+\midrule
+Extractive & 20.2 & 43.6 & 69.8 & 70.5 & 91.1 \\
+Abstractive & 43.1 & 49.0 & 22.7 & 57.0 & 86.8 \\
+\midrule
+Named Entity & 21.9 & 43.0 & 72.6 & 72.2 & 92.2 \\
+Noun Phrase & 17.2 & 37.2 & 64.9 & 64.1 & 88.6 \\
+Yes & 69.6 & 69.9 & 7.9\; & 72.7 & 95.6 \\
+No & 60.2 & 60.3 & 18.4 & 58.7 & 95.7 \\
+Number & 15.0 & 48.6 & 66.3 & 71.7 & 91.2 \\
+Date/Time & 13.7\; & 50.2 & 79.0 & 79.1 & 91.5 \\
+Other & 14.1 & 33.7 & 53.5 & 55.2 & 80.8 \\
+\midrule
+\multicolumn{6}{c}{\tf{Question Type}} \\
+\midrule
+Lexical Matching & 20.7 &  40.7 & 57.2 & 65.7 & 91.7 \\
+Paraphrasing &  23.7 & 33.9 & 46.9 & 64.4 & 88.8 \\
+Pragmatics  & 33.9 & 43.1 & 57.4 & 60.6 & 84.2 \\
+\midrule
+No coreference & 16.1  & 31.7 & 54.3 & 57.9 & 90.3  \\
+Explicit coreference & 30.4 & 42.3 & 49.0 & 66.3 & 87.1 \\
+Implicit coreference & 31.4 & 39.0 & 60.1 & 66.4 & 88.7 \\
+\bottomrule
+\end{tabular}
+\longcaption{Error anlaysis on \sys{CoQA}}{\label{tab:error-analysis} Fine-grained results of different question and answer types in the development set. For the question type results, we only analyze 150 questions as described in Section~\ref{sec:coqa-data-analysis}.}
+\end{table}
+
+Table~\ref{tab:error-analysis} presents fine-grained results of models and humans on the development set. We observe that humans have the highest disagreement on the unanswerable questions.
+Sometimes, people guess an answer even when it is not present in the passage, e.g., one can guess the age of \textit{Annie} in Figure~\ref{fig:coqa-example} based on her \textit{grandmother}'s age.
+The human agreement on abstractive answers is lower than on extractive answers.
+This is expected because our evaluation metric is based on word overlap rather than on the meaning of words.
+For the question \textit{did Jenny like her new room?},  human answers \textit{she loved it} and \textit{yes} are both accepted.
+
+Finding the perfect evaluation metric for abstractive responses is still a challenging problem \cite{liu2016not} and beyond the scope of our work.
+For our models' performance, \sys{seq2seq} and \sys{PGNet} perform well on the questions with abstractive answers, and \sys{Stanford Attentive Reader} performs well on the questions with extractive answers, due to their respective designs.
+The combined model improves on both categories.
+
+Among the lexical question types, humans find the questions with lexical matches the easiest followed by paraphrasing, and the questions with pragmatics the hardest --- this is expected since questions with lexical matches and paraphrasing share some similarity with the passage, thus making them relatively easier to answer than pragmatic questions.
+The best model also follows the same trend.
+While humans find the questions without coreferences easier than those with coreferences (explicit or implicit), the models behave sporadically.
+It is not clear why humans find implicit coreferences easier than explicit coreferences.
+A conjecture is that implicit coreferences depend directly on the previous turn whereas explicit coreferences may have long distance dependency on the conversation.
+
+\paragraph{Importance of conversation history.}
+Finally, we examine how important the conversation history is for the dataset. Table \ref{tab:ablations} presents the results with a varied number of previous turns used as conversation history.
+All models succeed at leveraging history but only up to a history of one previous turn (except \sys{PGNet}). It is surprising that using more turns could decrease the performance.
+
+We also perform an experiment on humans to measure the trade-off between their performance and the number of previous turns shown.
+Based on the heuristic that short questions likely depend on the conversation history, we sample 300 one or two word questions, and collect answers to these varying the number of previous turns shown.
+
+When we do not show any history, human performance drops to 19.9 F1 as opposed to 86.4 F1 when full history is shown. When the previous question and answer is shown, their performance boosts to 79.8 F1, suggesting that the previous turn plays an important role in making sense of the current question. If the last two questions and answers are shown, they reach up to 85.3 F1, almost close to the performance when the full history is shown. This suggests that most questions in a conversation have a limited dependency within a bound of two turns.
+
+\begin{table}[!t]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+\tf{history size} & \sys{seq2seq} & \sys{PGNet} & \sys{SAR} & \sys{Hybrid} \\
+\midrule
+0 & 24.0 & 41.3 & 50.4 & 61.5 \\
+1 & 27.5 & 43.9 & 54.7 &  66.2 \\
+2 & 21.4 & 44.6 & 54.6 & 66.0 \\
+all & 21.0 &  45.4 & 52.3 & 64.3 \\
+\bottomrule
+\end{tabular}
+\longcaption{\sys{CoQA} results on the development set with different history sizes}{\label{tab:ablations} Results on the development set with different history sizes. History size indicates the number of previous turns prepended to the current question. Each turn contains a question and its answer. \sys{SAR}: \sys{Stanford Attentive Reader}. }
+\end{table}

@@ -1,0 +1,50 @@
+%!TEX root = ../../thesis.tex
+
+\section{Future Work: Datasets}
+\label{sec:future-datasets}
+
+We have mostly focused on \sys{CNN/Daily Mail} and \sys{SQuAD} and demonstrated that both 1) neural models are able to achieve either super-human or the ceiling performance on them; 2) although these datasets are highly useful, most of the examples are rather simple and don't require much reasoning yet.  What desired properties are still missing in these datasets? What kind of datasets should we work on next? And how to collect better datasets?
+
+% still a quite restricted setup: (a) the crowdworkers can see the passage when they write the questions. As a result, there is usually a high lexical overlap between the question and the paragraph and thus it greatly eases the difficulty of answering these questions;  (b) questions are only allowed when they can be answered using a single span in the passage and this excludes many possible questions from the dataset such as those \ti{yes/no}, \ti{counting} or \ti{why} questions; (c) it is known that most of the questions in \sys{SQuAD} don't really need complex reasoning (combining facts from multiple sentences or background knowledge) and they are usually not compositional (which needs to be decomposed into multiple steps of simple questions).
+
+We think that datasets like \sys{SQuAD} mainly have the following limitations:
+\begin{itemize}
+    \item
+        The questions are \ti{posed based on the passage}.  That said, if a questioner is looking at the passage while they ask a question, they are quite likely to mirror the sentence structure and to reuse the same words. This eases the difficulty of answering questions as many questions words are overlapping with the passage words.
+    \item
+        It only allows questions that are \ti{answerable by a single span in the passage}. This not only implies all the questions are answerable, but also excludes many possible questions to be posed such as \ti{yes/no}, \ti{counting} questions. As we discussed earlier, most of the questions in \sys{SQuAD} are factoid questions and the answers are generally short (3.1 tokens on average). Therefore, there are also very few \ti{why} (cause and effect) and \ti{how} (procedure) questions in the dataset.
+    \item
+        Most of the questions can be answered by \ti{a single supporting sentence} in the passage and don't require multiple-sentence reasoning. \newcite{rajpurkar2016squad} estimated that only $13.6\%$ of the examples need multiple sentence reasoning. Among them, we think that most of the cases are resolving conferences, which might be solved by a coreference system.
+\end{itemize}
+
+To address these limitations, there have been a number of new datasets collected recently. They follow a similar paradigm of \sys{SQuAD} but are constructed in various ways. Table~\ref{tab:recent-datasets} gives an overview of a few representative datasets. As we can see, these datasets are of a similar order of magnitude (ranging from 33k to 529k training examples), and there is still a gap between the state-of-the-art and the human performance (some gaps are bigger than the others though). In the following, we describe these datasets in detail and discuss how they tackle the aforementioned limitations and their advantages/disadvantages:
+
+\begin{table}[t]
+    \centering
+    \small
+    \begin{tabular}{l | c c c | c | c c c}
+      \toprule
+      \tf{Dataset} & \tf{\#Train} & \tf{\#Dev} & \tf{\#Test} & \tf{Domain} & \tf{Metric} & \tf{Human} & \tf{SOTA} \\
+      \midrule
+      \sys{TriviaQA} (Web) & 528,979 & 68,621 & 65,059 & Web & F1 & N/A\footnote{\newcite{joshi2017triviaqa} provided oracles scores of \ti{exact match} accuracies of 82.8\% and 83.0\% of the Web and Wikipedia domain respectively. These numbers measure the percentage of examples that answer can be found in the documents and differ from human performance.} & 71.3 \\
+      \sys{TriviaQA} (Wiki.)\footnote{In contrast to the Web domain of \sys{TriviaQA}, the Wikipedia domain is evaluated over questions instead of documents.} & 61,888 & 9,951 & 9,509 & { Wikipedia} & F1 & N/A & 68.9 \\
+      \sys{RACE} & 87,866 & 4,887 & 4,934 & Exams & Accuracy & 100.0 & 59.0 \\
+      \sys{NarrativeQA}\footnote{We only list the setting where the summaries are given.} & 32,747 & 3,461 & 10,557 & Wikipedia & ROUGE-L & 57.0 & 36.3 \\
+      \sys{SQuAD 2.0} & 130,319 & 11,873 & 8,862 & Wikipedia & F1 & 89.5 & 83.1 \\
+      \sys{HotpotQA}\footnote{We only list the ``distractor'' setting.}  & 90,564 & 7,405 & 7,405 & {Wikipedia} & F1 & 91.4 & 59.0 \\
+      \bottomrule
+    \end{tabular}
+    \longcaption{A summary of more recent reading comprehension datasets}{\label{tab:recent-datasets}A summary of more recent reading comprehension datasets. We only show the F1 results for span-prediction tasks and ROUGE-L for free-form answer tasks. The state-of-the-art results are taken from \newcite{clark2018simple} for \sys{TriviaQA}~\cite{joshi2017triviaqa}, \newcite{radford2018improving} for \sys{RACE}~\cite{lai2017race}, \newcite{kovcisky2018narrativeqa} for \sys{NarrativeQA}, \newcite{devlin2018bert} for \sys{SQuAD 2.0}~\cite{rajpurkar2018know} and \newcite{yang2018hotpotqa} for \sys{HotpotQA}.}
+\end{table}
+
+\paragraph{TriviaQA~\cite{joshi2017triviaqa}.} The key idea of this dataset is that question/answer pairs were collected \ti{before} constructing the corresponding passages. More specifically, they gathered 95k question-answer pairs from trivia and quiz-league websites and collected textual evidence which contained the answer from either Web search results or Wikipedia pages corresponding to the entities which are mentioned in the question. As a result, they collected 650k (passage, question, answer) triples in total. This paradigm effectively solved the problem that questions were dependent on the passage and also it is easier to construct a large dataset cheaply. It is worth noting that the passages used in this dataset are mostly long documents (the average document length is 2,895 words and it is 20 times longer than that of \sys{SQuAD}), and also posed a challenge of scalability for existing models.  However, it has a similar problem to the \sys{CNN/Daily Mail} dataset --- as the dataset was curated heuristically, there is no guarantee that the passage really provides the answer to the question and this influences the quality of the training data.
+
+\paragraph{RACE~\cite{lai2017race}.} Humans' standardized tests are a proper way to evaluate machines' reading comprehension abilities. \sys{RACE} is a multiple choice dataset collected from the English exams for middle-school and high-school Chinese students within the 12–-18 age range. All the questions and answer options were created by experts. As a result, the dataset is more difficult than most existing datasets and it was estimated that 26\% of the questions require multiple sentence reasoning. The state-of-the-art performance is only 59\% so far (each question has 4 candidate answers).
+
+\paragraph{NarrativeQA~\cite{kovcisky2018narrativeqa}.} This is a challenging dataset and it required crowdworkers to ask questions based on the plot summaries of a book or a movie from Wikipedia. The answers are free-form human-generated text and in particular, the annotators were encouraged to use their own words and copying is not allowed in the interface. The plot summaries usually contain more characters and events and more complex to follow than news articles or Wikipedia paragraphs. The dataset consists of two settings: one is to answer questions base on the summary (659 tokens on average) which is more similar to \sys{SQuAD}, and the other is to answer questions based on the full book or movie script (62,528 tokens on average). The second setting is especially difficult, as it requires IR components to locate relevant information in the long documents. One problem with this dataset is that human agreement is low due to its free-form answer form and thus it is difficult to evaluate.
+
+\paragraph{SQuAD 2.0~\cite{rajpurkar2018know}.} \sys{SQuAD 2.0} proposed to add 53,775 negative examples to the original \sys{SQuAD} dataset. These questions are not answerable from the passage, but look similar to the positive ones (relevant and the passage contains a plausible answer). To work well on the dataset, systems need to not only answer questions but also determine when no answer is supported by the paragraph and abstain from answering. This is an important aspect in practical applications but has been omitted in previous datasets.
+
+\paragraph{HotpotQA~\cite{yang2018hotpotqa}.} This dataset aims to construct questions which need multiple supporting documents to answer. To approach this, the crowdworkers were required to ask questions based on two relevant Wikipedia paragraphs (there is a hyperlink from the first paragraph of one article to the other). It also offers a new type of factoid comparison question, for which systems need to compare two entities on some shared properties. The dataset consists of two settings for evaluation -- one is called the \ti{distractor} setting in which each question is provided 10 passages, including the two passages used for constructing the question and 8 distractor passages retrieved from Wikipedia; the second setting is to use the full Wikipedia to answer the question.
+
+Compared to \sys{SQuAD}, these datasets either require more complex reasoning cross sentences or documents, or need to handle longer documents, or need to generate free-form answers instead of extracting a single span, or predict when there is no answer in the passage. They posed new challenges and many are still beyond the scope of existing models. We believe that these datasets will further inspire a series of modeling innovations in the future. After our models can reach the next level of performance, we will need to set out to construct even more difficult datasets to solve.

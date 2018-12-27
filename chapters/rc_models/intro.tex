@@ -1,0 +1,29 @@
+%!TEX root = ../../thesis.tex
+
+% \section{Introduction}
+
+In this chapter, we will cover the essence of neural network models: from the basic building blocks, to more recent advances.
+
+Before delving into the details of neural models, we give a brief introduction to non-neural, feature-based models for reading comprehension in Section~\ref{sec:feature-models}. In particular, we describe a model that we built in \newcite{chen2016thorough}. We hope this will give readers a better sense about how these two approaches differ fundamentally.
+
+In Section~\ref{sec:sar}, we present a neural approach to reading comprehension called \sys{The Stanford Attentive Reader}, which we first proposed in \newcite{chen2016thorough} for the cloze style reading comprehension tasks, and then later adapted to the span prediction problems \cite{chen2017reading} for \sys{SQuAD}. We first briefly review the basic building blocks of modern neural NLP models, and then describe how our model is built on top of them. We discuss its extensions to the other types of reading comprehension problems in the end.
+
+Next we present the empirical results of our model on the \sys{CNN/Daily Mail} and the \sys{SQuAD} datasets, and provide more implementation details in Section~\ref{sec:sar-experiments}. We further conduct careful error analyses to help us better understand: 1) which components are most important for final performance; 2) where the neural models excel compared to non-neural feature-based models empirically.
+
+Finally, we summarize recent advances in neural reading comprehension in Section~\ref{sec:advances}.
+
+% This chapter is going to cover the following topics:
+% \begin{itemize}
+%     \item
+%        Talk about non-neural approaches and use my baseline in the ACL'16 paper as an example
+%     \item
+%           Introduce SAR (and its variants on different RC tasks) -- I am hoping to give more intuitions (\red{how?})
+%     \item
+%        Probably need to give some background of neural NLP: word embeddings and recurrent neural networks etc
+%     \item
+%        Talk about experiments on CNN/Daily Mail and SQuAD: the architectures are slightly different but it should be fine...
+%     \item
+%        Analysis: 1) ablation studies of SQuAD from the ACL17 paper 2) comparison between the neural approach and non-neural approach on the CNN dataset
+%     \item
+%        Further advances: 1) word representations 2) alternatives of RNNs 3) attention mechanisms 4) better training objectives
+% \end{itemize}

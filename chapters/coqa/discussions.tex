@@ -1,0 +1,22 @@
+%!TEX root = ../../thesis.tex
+
+\section{Discussion}
+\label{sec:coqa-future}
+
+So far, we have discussed the \sys{CoQA} dataset and several competitive baselines based on conversational models and reading comprehension models. We hope that our efforts can enable the first step to building conversational QA agents.
+
+On the one hand, we think there is ample room for further improving performance on \sys{CoQA}: our hybrid system obtains an F1 score of 65.1\%, which is still 23.7 points behind the human performance (88.8\%). We encourage our research community to work on this dataset and push the limits of conversational question answering models. We think there are several directions for further improvement:
+
+\begin{itemize}
+    \item
+        All the baseline models we built only use the conversation history by simply concatenating the previous questions and answers with the current question. We think that there should be better ways to connect the history and the current question. For the questions in Table~\ref{tab:ling-phenomena}, we should build models to actually understand that \ti{his} in the question \ti{What was his name?} refers to \ti{the puppy}, and the question \ti{Where?} means \ti{Where will Sirisena be sworn in?}. Indeed, a recent model \sys{FlowQA}~\cite{huang2018flowqa} proposed a solution to effectively stack single-turn models along the conversational flow and demonstrated a state-of-the-art performance on \sys{CoQA}.
+    \item
+        Our hybrid model aims to combine the advantages from the span prediction reading comprehension models and the pointer-generator network model to address the nature of abstractive answers. However, we implemented it as a pipeline model so the performance of the second component depends on whether the reading comprehension model can extract the right piece of evidence from the passage. We think that it is desirable to build an end-to-end model which can extract rationales while also rewriting the rationale into the final answer.
+    \item
+        We think the rationales that we collected can be better leveraged into training models.
+\end{itemize}
+
+On the other hand, \sys{CoQA} certainly has its limitations and we should explore more challenging and more useful datasets in the future. One clear limitation is that the conversations in \sys{CoQA} are only turns of question and answer pairs. That means the answerer is only responsible for answering questions while she can't ask any clarification questions or communicate with the questioner through conversations.  Another problem is that \sys{CoQA} has very few (1.3\%) unanswerable questions, which we think are crucial in practical conversational QA systems.
+
+
+In parallel to our work, \newcite{choi2018quac} also created a dataset of conversations in the form of questions and answers on text passages. In our interface, we show a passage to both the questioner and the answerer, whereas their interface only shows a title to the questioner and the full passage to the answerer. Since their setup encourages the answerer to reveal more information for the following questions, their answers are as long as 15.1 words on average (ours is 2.7). While the human performance on our test set is 88.8 F1, theirs is 74.6 F1. Moreover, while \sys{CoQA}'s answers can be abstractive, their answers are restricted to only extractive text spans. Our dataset contains passages from seven diverse domains, whereas their dataset is built only from Wikipedia articles about people. Also, concurrently, \newcite{saeidi2018interpretation} created a conversational QA dataset for regulatory text such as tax and visa regulations. Their answers are limited to \textit{yes} or \textit{no} along with a positive characteristic of permitting to ask clarification questions when a given question cannot be answered.

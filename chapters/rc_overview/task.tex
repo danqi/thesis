@@ -1,0 +1,57 @@
+%!TEX root = ../../thesis.tex
+
+\section{Task Definition}
+\label{sec:task-definition}
+
+\subsection{Problem Formulation}
+
+The task of reading comprehension can be formulated as a supervised learning problem: given a collection of training examples $\{({p}_i, {q}_i, {a}_i)\}_{i=1}^{n}$, the goal is to learn a predictor $f$ which takes a passage of text ${p}$ and a corresponding question ${q}$ as inputs and gives the answer ${a}$ as output.
+\begin{equation}
+  f: ({p}, {q}) \longrightarrow {a}
+\end{equation}
+
+Let ${p} = (p_1, p_2, \ldots, p_{l_p})$ and ${q} = (q_1, q_2, \ldots, q_{l_q})$\footnote{A preprocessing step of tokenization is usually required on most current reading comprehension datasets.} where $l_p$ and $l_q$ denote the length of the passage and the question, $p_i \in \mathcal{V}$ for $i = 1, \ldots, l_p$ and $q_i \in \mathcal{V}$ for $i = 1, \ldots, l_q$ where $\mathcal{V}$ is a pre-defined vocabulary. Here we only consider the passage ${p}$ as a short paragraph represented as a sequence of $l_p$ words. It is straightforward to extend it to a multi-paragraph setting \cite{clark2018simple} where ${p}$ is a set of paragraphs or decompose it into smaller linguistic units such as sentences.\footnote{There have been some efforts (e.g., \cite{xie2017constituent}) which model the paragraph as a sequence of sentences, but there is no clear evidence that it outperforms methods that treat the whole paragraph as a long sequence at this point.}
+
+Depending on the answer type, the answer ${a}$ can take very different forms. Generally, we can divide existing reading comprehension tasks into four categories:
+
+\begin{description}
+\item[Cloze style.] The question contains a placeholder. For instance,
+\begin{displayquote}
+Tottenham manager Juande Ramos has hinted he will allow \underline{\hspace{1cm}} to leave if the Bulgaria striker makes it clear he is unhappy.
+\end{displayquote}
+In these tasks, the systems must guess which word or entity completes the sentence (question), based on the passage, and the answer ${a}$ is either chosen from a pre-defined set of choices $\mathcal{A}$ or the full vocabulary $\mathcal{V}$. For example, in the \sys{Who-did-What} dataset \cite{onishi2016did}, ${a}$ must be one of the person named entities in the passage and $|\mathcal{A}| = 3.5$ on average.
+
+\item[Multiple choice.] In this category, the correct answer is chosen from $k$ hypothesized answers (e.g., $k = 4$):
+$$\mathcal{A} = \{{a}_1, \ldots, {a}_k\}  \text{ where } {a}_{k} = (a_{k, 1}, a_{k, 2} \ldots, a_{k, l_{a, k}}), a_{k, i} \in \mathcal{V},$$
+can be a word, a phrase or a sentence. One of the hypothesized answers is correct and thus ${a}$ must be chosen from $\{{a}_1, \ldots, {a}_k\}$.
+
+
+\item[Span prediction.] This category is also referred to as \ti{extractive question answering} and the answer ${a}$ must be a single span in the passage. Therefore, ${a}$ can be represented as $(a_{start}, a_{end})$ where $1 \leq a_{start} \leq a_{end} \leq l_p$, and the answer string corresponds to $p_{a_{start}}, \ldots, p_{a_{end}}.$
+
+\item[Free-form answer.] The last category allows the answer to be any free-text form (i.e., a word sequence of arbitrary length), formally, ${a} \in \mathcal{V}^*$.
+\end{description}
+
+Table~\ref{tab:rc-examples} gives an example in each of the categories from four representative datasets: \sys{CNN/Daily Mail}~\cite{hermann2015teaching} (cloze style), \sys{MCTest}~\cite{richardson2013mctest} (multiple choice), \sys{SQuAD}~\cite{rajpurkar2016squad} (span prediction) and \sys{NarrativeQA}~\cite{kovcisky2018narrativeqa} (free-form answer).
+
+
+\subsection{Evaluation}
+\label{sec:evaluation}
+We have formally defined the four different categories of reading comprehension tasks, next we discuss their evaluation metrics.
+
+For \tf{multiple choice} or \tf{cloze style} tasks, it is quite straightforward to measure the accuracy: the percentage of questions for which systems give the exactly correct answer, as the answer is chosen from a small set of hypothesized answers.
+
+For \tf{span prediction} tasks, we need to compare the predicted answer string to the ground truth. Typically, we use the two evaluation metrics proposed in \newcite{rajpurkar2016squad}, which measure both exact match and partial scores:
+
+\begin{itemize}
+    \item
+        \tf{Exact match (EM)} assigns a full credit $1.0$ if the predicted answer is equal to the gold answer and $0.0$ otherwise.
+    \item
+        \tf{F1 score} computes the average word overlap between predicted and gold answers. The prediction and the gold answer are treated as a bag of tokens and a token-level F1 score is calculated as: $$ \text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}. $$
+\end{itemize}
+
+
+Following \newcite{rajpurkar2016squad}, all punctuation is ignored in the evaluation and for English, articles  \ti{a}, \ti{an}, and \ti{the} are also ignored.
+
+To make the evaluation more reliable, it is also common to collect multiple gold answers to each question. Therefore, the exact match score is only required to match any of the gold answers while the F1 score is to compute the maximum over all of the gold answers and then averaged over all of the questions.
+
+Lastly, for the \tf{free-form answer} reading comprehension tasks, there isn't a consensus yet on what is the most ideal evaluation metric. A common way is to use standard evaluation metrics in natural language generation (NLG) tasks such as machine translation or summarization, including BLEU \cite{papineni2002bleu}, Meteor \cite{banerjee2005meteor} and ROUGE \cite{lin2004rouge}.

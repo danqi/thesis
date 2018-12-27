@@ -1,0 +1,89 @@
+%!TEX root = ../../thesis.tex
+
+% \section{Introduction}
+In the previous chapter, we have described how neural reading comprehension models succeeded in current reading comprehension benchmarks and their key insights. Despite its rapid progress, there is still a long way to go towards genuine human-level reading comprehension. In this chapter, we will discuss future work and open questions.
+
+We first examine the error cases of existing models in Section~\ref{sec:squad-errors}, and conclude that they still fail on ``easy'' or ``trivial'' cases despite their high accuracies on average.
+
+As we discussed earlier, the success of recent reading comprehension is attributed to both the creation of large-scale datasets and the development of neural reading comprehension models. In the future, we believe both components will be still equally important. We  discuss the future work of datasets and models respectively in Section~\ref{sec:future-datasets} and \ref{sec:future-models}. What is still missing in the existing datasets and models? How can we approach that?
+
+Finally, we review several important research questions in this field in Section~\ref{sec:research-questions}.
+
+\section{Is SQuAD Solved Yet?}
+\label{sec:squad-errors}
+
+Although we have already achieved super-human performance on the \sys{SQuAD} dataset, does it indicate that our reading comprehension models are capable of solving all the \sys{SQuAD} examples or any examples with the same level of difficulty?
+
+Figure~\ref{fig:sar-squad-errors} demonstrates some failure cases of our \sys{Stanford Attentive Reader} model described in Section \ref{sec:sar}. As we can see, the model predicts the answer type perfectly for all these examples: it predicts a number for the question \ti{what is the total number of \ldots ?} and \ti{what is the population \ldots ?} and a team name for the question \ti{Which team won Super Bowl 50?}. However, the model failed to understand the subtleties expressed in the text and can't distinguish among the candidate answers. In more detail,
+
+
+\begin{enumerate}[(a)]
+  \item The number \ti{2,400} modifies \ti{professors, lecturers, and instructors} while \ti{7,200} modifies \ti{undergraduates}. However, the system failed to identify that and we believe that linguistic structures (e.g., syntactic parsing) can help resolve this case.
+  \item Both teams \ti{Denver Broncos} and \ti{Carolina Panthers} are modified by the word \ti{champion}, but the system failed to infer that ``X defeated Y'' so ``X won''.
+  \item The system predicted \ti{100,000} probably because it is closer to the word \ti{population}. However, to answer the question correctly, the system has to identify that \ti{3.7 million} is the population of \ti{Los Angles}, and \ti{1.3 million} is the population of \ti{San Diego} and compare the two numbers and infer that \ti{1.3 million} is the answer because it is \ti{second largest}. This is a difficult example and probably beyond the scope of all the existing systems.
+\end{enumerate}
+
+\begin{figure}[p]
+    \centering
+    \begin{tabular}{l | p{13.5cm}}
+    \hline
+    (a) &\tf{Question}: What is the total number of professors, instructors, and lecturers at Harvard? \\
+    & \tf{Passage}: Harvard's \blue{2,400} professors, lecturers, and instructors instruct \red{7,200} undergraduates and 14,000 graduate students. The school color is crimson, which is also the name of the Harvard sports teams and the daily newspaper, The Harvard Crimson. The color was unofficially adopted (in preference to magenta) by an 1875 vote of the student body, although the association with some form of red can be traced back to 1858, when Charles William Eliot, a young graduate student who would later become Harvard's 21st and longest-serving president (1869–-1909), bought red bandanas for his crew so they could more easily be distinguished by spectators at a regatta. \\
+    & \tf{Gold answer}: 2,400 \\
+    & \tf{Predicted answer}: 7,200 \\
+    \hline
+    (b) & \tf{Question}: Which team won Super Bowl 50? \\
+    & \tf{Passage}: Super Bowl 50 was an American football game to determine the champion of the National Football League (NFL) for the 2015 season. The American Football Conference (AFC) champion \blue{Denver Broncos} defeated the National Football Conference (NFC) champion \red{Carolina Panthers} 24–10 to earn their third Super Bowl title. The game was played on February 7, 2016, at Levi's Stadium in the San Francisco Bay Area at Santa Clara, California. As this was the 50th Super Bowl, the league emphasized the "golden anniversary" with various gold-themed initiatives, as well as temporarily suspending the tradition of naming each Super Bowl game with Roman numerals (under which the game would have been known as "Super Bowl L"), so that the logo could prominently feature the Arabic numerals 50. \\
+    & \tf{Gold answer}: Denver Broncos \\
+    & \tf{Predicted answer}: Carolina Panthers \\
+    \hline
+    (c) & \tf{Question}: What is the population of the second largest city in California? \\
+    & \tf{Passage}: Los Angeles (at 3.7 million people) and San Diego (at \blue{1.3 million} people), both in southern California, are the two largest cities in all of California (and two of the eight largest cities in the United States). In southern California there are also twelve cities with more than 200,000 residents and 34 cities over \red{100,000} in population. Many of southern California's most developed cities lie along or in close proximity to the coast, with the exception of San Bernardino and Riverside. \\
+    & \tf{Gold answer}: 1.3 million \\
+    & \tf{Predicted answer}: 100,000 \\
+    \hline
+    \end{tabular}
+    \longcaption{Failure cases of our model on SQuAD}{\label{fig:sar-squad-errors}Several failure cases of our model on \sys{SQuAD}. Gold answers are marked as \blue{blue} and predicted answers are marked as \red{red}.}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \small
+    \begin{tabular}{l | p{13.5cm}}
+    \hline
+    (d) &\tf{Question}: What is the least number of members a board of trustees can have? \\
+    & \tf{Passage}: The Book of Discipline is the guidebook for local churches and pastors and describes in considerable detail the organizational structure of local United Methodist churches. All UM churches must have a board of trustees with at least \blue{three} members and no more than \red{nine} members and it is recommended that no gender should hold more than a 2/3 majority. All churches must also have a nominations committee, a finance committee and a church council or administrative council. Other committees are suggested but not required such as a missions committee, or evangelism or worship committee. Term limits are set for some committees but not for all. The church conference is an annual meeting of all the officers of the church and any interested members. This committee has the exclusive power to set pastors' salaries (compensation packages for tax purposes) and to elect officers to the committees. \\
+    & \tf{Gold answer}: three \\
+    & \tf{Predicted answer}: nine \\
+    \hline
+    (e) & \tf{Question}: Where does centripetal force go? \\
+    & \tf{Passage}: where  is the mass of the object,  is the velocity of the object and  is the distance to the center of the circular path and  is the unit vector pointing in the radial direction outwards from the center. This means that the unbalanced centripetal force felt by any object is always directed toward \blue{the center of the curving path}. Such forces act perpendicular to the velocity vector associated with the motion of an object, and therefore do not change the speed of the object (magnitude of the velocity), but only the direction of the velocity vector. The unbalanced force that accelerates an object can be resolved into a component that is perpendicular to the path, and one that is tangential to the path. This yields both the tangential force, which accelerates the object by either slowing it down or speeding it up, and the radial (centripetal) force, which \red{changes its direction}. \\
+    & \tf{Gold answer}: the center of the curving path \\
+    & \tf{Predicted answer}: changes its direction \\
+    \hline
+    (f) & \tf{Question}: How many times have the Panthers been in the Super Bowl? \\
+    & \tf{Passage}: The Panthers finished the regular season with a 15–1 record, and quarterback Cam Newton was named the NFL Most Valuable Player (MVP). They defeated the Arizona Cardinals 49–15 in the NFC Championship Game and advanced to their \blue{second} Super Bowl appearance since the franchise was founded in 1995. The Broncos finished the regular season with a 12–4 record, and denied the New England Patriots a chance to defend their title from Super Bowl XLIX by defeating them 20–18 in the AFC Championship Game. They joined the Patriots, Dallas Cowboys, and Pittsburgh Steelers as one of four teams that have made \red{eight} appearances in the Super Bowl. \\
+    & \tf{Gold answer}: second \\
+    & \tf{Predicted answer}: eight \\
+    \hline
+    \end{tabular}
+    \longcaption{Failure cases of the currently best model (\sys{BERT} ensemble) on SQuAD}{\label{fig:bert-squad-errors}Several failure cases of the currently best model (\sys{BERT} ensemble) on \sys{SQuAD}. Gold answers are marked as \blue{blue} and predicted answers are marked as \red{red}.}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \begin{tabular}{p{13.5cm}}
+    \hline
+      \tf{Question}: What is the name of the quarterback who was 38 in Super Bowl XXXIII? \\
+      \tf{Passage}: Peyton Manning became the first quarterback ever to lead two different teams to multiple Super Bowls. He is also the oldest quarterback ever to play in a Super Bowl at age 39. The past record was held by \blue{John Elway}, who led the Broncos to victory in Super Bowl XXXIII at age 38 and is currently Denver’s Executive Vice President of Football Operations and General Manager. \ti{Quarterback \red{Jeff Dean} had jersey number 37 in Champ Bowl XXXIV.} \\
+    \hline
+    \end{tabular}
+    \longcaption{An adversarial example used in ~\cite{jia2017adversarial}}{\label{fig:adversarial-example}An adversarial example used in ~\cite{jia2017adversarial}, where a distracting sentence is added to the end of the passage (italicized). \blue{Blue}: the correct answer and \red{red}: the predicted answer.}
+\end{figure}
+
+We also took a closer look at the predictions of the best SQuAD model so far --- an ensemble of 7 \sys{BERT} models \cite{devlin2018bert}. As is demonstrated in Figure~\ref{fig:bert-squad-errors}, we can see that this strong model still makes some simple mistakes which humans hardly make. It is fair to conjecture that these models have been doing very sophisticated matching of text while they still have difficulty understanding the inherent structure between entities and the events expressed in the text.
+
+
+Lastly, \newcite{jia2017adversarial} find that if we add a distracting sentence to the end of the passage (see an example in Figure~\ref{fig:adversarial-example}), the average performance of current reading comprehension systems will drop drastically from 75.4\% to 36.4\%. These distracting sentences have word overlap with the question while not actually contradict the correct answer and not mislead human understanding. The performance is even worse if the distracting sentence is allowed to add ungrammatical sequences of words. These results suggest that 1) The current models strongly depend on the lexical cues between the passage and the question. That's why the distracting sentences can be so destructive; 2) Even though the models achieved a high accuracy on the original development set, they are really not robust to the adversarial examples. This is a critical problem of the standard supervised learning paradigm and it makes existing models difficult to deploy in the real world. We will discuss the property of robustness more in Section~\ref{sec:future-models}.
+
+To sum up, we believe that, although a very high accuracy was already obtained on the \sys{SQuAD} dataset, the current models only focus on the surface-level information of the text, and still make simple errors when it comes to a (slightly) deeper level of understanding. On the other hand, the high accuracies also indicate that most of the \sys{SQuAD} examples are rather easy and require little understanding. There are difficult examples which require complex reasoning in \sys{SQuAD} (for example, (c) in Figure~\ref{fig:sar-squad-errors}), but due to their scarcity, their accuracies aren't really reflected in the averaged metric. Furthermore, the high accuracies only hold when training and development come from the same distribution, and it still remains a severe problem when they differ. In the next two sections, we discuss the possibilities of creating more challenging datasets and building more effective models.

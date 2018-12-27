@@ -1,0 +1,620 @@
+1
+Oct 05, 2018	BERT (ensemble)
+Google AI Language
+https://arxiv.org/abs/1810.04805	87.433	93.160
+2
+Oct 05, 2018	BERT (single model)
+Google AI Language
+https://arxiv.org/abs/1810.04805	85.083	91.835
+2
+Sep 09, 2018	nlnet (ensemble)
+Microsoft Research Asia
+85.356	91.202
+2
+Sep 26, 2018	nlnet (ensemble)
+Microsoft Research Asia
+85.954	91.677
+3
+Jul 11, 2018	QANet (ensemble)
+Google Brain & CMU
+84.454	90.490
+4
+Jul 08, 2018	r-net (ensemble)
+Microsoft Research Asia
+84.003	90.147
+5
+Mar 19, 2018	QANet (ensemble)
+Google Brain & CMU
+83.877	89.737
+5
+Sep 09, 2018	nlnet (single model)
+Microsoft Research Asia
+83.468	90.133
+5
+Jun 20, 2018	MARS (ensemble)
+YUANFUDAO research NLP
+83.982	89.796
+6
+Sep 01, 2018	MARS (single model)
+YUANFUDAO research NLP
+83.185	89.547
+7
+Jan 03, 2018	r-net+ (ensemble)
+Microsoft Research Asia
+82.650	88.493
+7
+May 09, 2018	MARS (single model)
+YUANFUDAO research NLP
+82.587	88.880
+7
+Feb 19, 2018	Reinforced Mnemonic Reader + A2D (ensemble model)
+Microsoft Research Asia & NUDT
+82.849	88.764
+7
+Jan 22, 2018	Hybrid AoA Reader (ensemble)
+Joint Laboratory of HIT and iFLYTEK Research
+82.482	89.281
+7
+Jun 20, 2018	QANet (single)
+Google Brain & CMU
+82.471	89.306
+7
+Mar 06, 2018	QANet (ensemble)
+Google Brain & CMU
+82.744	89.045
+7
+Jun 21, 2018	MARS (single model)
+YUANFUDAO research NLP
+83.122	89.224
+8
+Jan 05, 2018	SLQA+ (ensemble)
+Alibaba iDST NLP
+82.440	88.607
+9
+Feb 02, 2018	Reinforced Mnemonic Reader (ensemble model)
+NUDT and Fudan University
+https://arxiv.org/abs/1705.02798	82.283	88.533
+9
+Feb 27, 2018	QANet (single model)
+Google Brain & CMU
+82.209	88.608
+10
+Dec 22, 2017	AttentionReader+ (ensemble)
+Tencent DPDAC NLP
+81.790	88.163
+11
+May 09, 2018	Reinforced Mnemonic Reader + A2D (single model)
+Microsoft Research Asia & NUDT
+81.538	88.130
+11
+Dec 17, 2017	r-net (ensemble)
+Microsoft Research Asia
+http://aka.ms/rnet	82.136	88.126
+12
+May 09, 2018	Reinforced Mnemonic Reader + A2D + DA (single model)
+Microsoft Research Asia & NUDT
+81.401	88.122
+12
+Apr 23, 2018	r-net (single model)
+Microsoft Research Asia
+81.391	88.170
+12
+Apr 03, 2018	KACTEIL-MRC(GF-Net+) (ensemble)
+Kangwon National University, Natural Language Processing Lab.
+81.496	87.557
+12
+Feb 27, 2018	QANet (single model)
+Google Brain & CMU
+80.929	87.773
+12
+Nov 17, 2017	BiDAF + Self Attention + ELMo (ensemble)
+Allen Institute for Artificial Intelligence
+81.003	87.432
+12
+Feb 19, 2018	Reinforced Mnemonic Reader + A2D (single model)
+Microsoft Research Asia & NUDT
+80.919	87.492
+13
+Feb 12, 2018	Reinforced Mnemonic Reader + A2D (single model)
+Microsoft Research Asia & NUDT
+80.489	87.454
+13
+Apr 12, 2018	AVIQA+ (ensemble)
+aviqa team
+80.615	87.311
+14
+Mar 20, 2018	DNET (ensemble)
+QA geeks
+80.164	86.721
+14
+Jan 22, 2018	Hybrid AoA Reader (single model)
+Joint Laboratory of HIT and iFLYTEK Research
+80.027	87.288
+14
+Jan 12, 2018	EAZI+ (ensemble)
+Yiwise NLP Group
+80.426	86.912
+14
+Jan 13, 2018	SLQA+
+single model
+80.436	87.021
+14
+Jan 04, 2018	{EAZI} (ensemble)
+Yiwise NLP Group
+80.436	86.912
+15
+Feb 12, 2018	BiDAF + Self Attention + ELMo + A2D (single model)
+Microsoft Research Asia & NUDT
+79.996	86.711
+16
+Jan 29, 2018	Reinforced Mnemonic Reader (single model)
+NUDT and Fudan University
+https://arxiv.org/abs/1705.02798	79.545	86.654
+16
+Apr 10, 2018	Unnamed submission by null
+80.027	86.612
+16
+Feb 23, 2018	MAMCN+ (single model)
+Samsung Research
+79.692	86.727
+16
+Jan 03, 2018	r-net+ (single model)
+Microsoft Research Asia
+79.901	86.536
+16
+Dec 28, 2017	SLQA+ (single model)
+Alibaba iDST NLP
+79.199	86.590
+16
+Dec 05, 2017	SAN (ensemble model)
+Microsoft Business AI Solutions Team
+https://arxiv.org/abs/1712.03556	79.608	86.496
+17
+Oct 17, 2017	Interactive AoA Reader+ (ensemble)
+Joint Laboratory of HIT and iFLYTEK
+79.083	86.450
+18
+Oct 24, 2017	FusionNet (ensemble)
+Microsoft Business AI Solutions Team
+https://arxiv.org/abs/1711.07341	78.978	86.016
+18
+Jun 01, 2018	MDReader
+single model
+79.031	86.006
+18
+Feb 01, 2018	Unnamed submission by null
+78.999	86.151
+19
+Oct 24, 2018	WDNet (single model)
+Beijing Normal University
+78.926	85.810
+19
+Oct 22, 2017	DCN+ (ensemble)
+Salesforce Research
+https://arxiv.org/abs/1711.00106	78.852	85.996
+20
+Mar 29, 2018	KACTEIL-MRC(GF-Net+) (single model)
+Kangwon National University, Natural Language Processing Lab.
+78.664	85.780
+20
+Nov 03, 2017	BiDAF + Self Attention + ELMo (single model)
+Allen Institute for Artificial Intelligence
+78.580	85.833
+21
+May 09, 2018	KakaoNet (single model)
+Kakao NLP Team
+78.401	85.724
+22
+Nov 30, 2017	SLQA(ensemble)
+Alibaba iDST NLP
+78.328	85.682
+22
+Jan 02, 2018	Conductor-net (ensemble)
+CMU
+https://arxiv.org/abs/1710.10504	78.433	85.517
+22
+Jun 01, 2018	MDReader0
+single model
+78.171	85.543
+22
+Sep 18, 2018	BiDAF++ with pair2vec (single model)
+UW and FAIR
+78.223	85.535
+22
+Jan 03, 2018	MEMEN (single model)
+Zhejiang University
+https://arxiv.org/abs/1707.09098	78.234	85.344
+22
+Mar 19, 2018	aviqa (ensemble)
+aviqa team
+78.496	85.469
+23
+Jan 29, 2018	test
+single
+78.087	85.348
+24
+Jul 25, 2017	Interactive AoA Reader (ensemble)
+Joint Laboratory of HIT and iFLYTEK Research
+77.845	85.297
+25
+Jan 10, 2018	Unnamed submission by null
+77.436	85.130
+26
+Dec 06, 2017	AttentionReader+ (single)
+Tencent DPDAC NLP
+77.342	84.925
+26
+Sep 18, 2018	BiDAF++ (single model)
+UW and FAIR
+77.573	84.858
+26
+Dec 13, 2017	RaSoR + TR + LM (single model)
+Tel-Aviv University
+https://arxiv.org/abs/1712.03609	77.583	84.163
+26
+Apr 10, 2018	Unnamed submission by null
+77.489	84.735
+26
+Mar 20, 2018	DNET (single model)
+QA geeks
+77.646	84.905
+27
+Nov 06, 2017	Conductor-net (ensemble)
+CMU
+https://arxiv.org/abs/1710.10504	76.996	84.630
+27
+Sep 26, 2018	{gqa} (single model)
+FAIR
+77.090	83.931
+27
+Dec 21, 2017	Jenga (ensemble)
+Facebook AI Research
+77.237	84.466
+27
+Jan 23, 2018	MARS (single model)
+YUANFUDAO research NLP
+76.859	84.739
+28
+Nov 01, 2017	SAN (single model)
+Microsoft Business AI Solutions Team
+https://arxiv.org/abs/1712.03556	76.828	84.396
+29
+Oct 13, 2017	r-net (single model)
+Microsoft Research Asia
+http://aka.ms/rnet	76.461	84.265
+29
+Dec 19, 2017	FRC (single model)
+in review
+76.240	84.599
+29
+May 14, 2018	VS^3-NET (single model)
+Kangwon National University in South Korea
+76.775	84.491
+30
+Oct 22, 2017	Conductor-net (ensemble)
+CMU
+76.146	83.991
+31
+Sep 08, 2017	FusionNet (single model)
+Microsoft Business AI Solutions team
+https://arxiv.org/abs/1711.07341	75.968	83.900
+31
+Oct 18, 2018	KAR (single model)
+York University
+https://arxiv.org/abs/1809.03449	76.125	83.538
+32
+Jul 14, 2017	smarnet (ensemble)
+Eigen Technology & Zhejiang University
+75.989	83.475
+32
+Oct 22, 2017	Interactive AoA Reader+ (single model)
+Joint Laboratory of HIT and iFLYTEK
+75.821	83.843
+32
+Mar 15, 2018	AVIQA-v2 (single model)
+aviqa team
+75.926	83.305
+33
+Oct 05, 2018	Unnamed submission by null
+74.950	83.294
+33
+Aug 18, 2017	RaSoR + TR (single model)
+Tel-Aviv University
+https://arxiv.org/abs/1712.03609	75.789	83.261
+34
+Oct 23, 2017	DCN+ (single model)
+Salesforce Research
+https://arxiv.org/abs/1711.00106	75.087	83.081
+35
+Feb 13, 2018	SSR-BiDAF
+ensemble model
+74.541	82.477
+35
+Nov 01, 2017	Mixed model (ensemble)
+Sean
+75.265	82.769
+36
+Jan 02, 2018	Conductor-net (single model)
+CMU
+https://arxiv.org/abs/1710.10504	74.405	82.742
+36
+Nov 17, 2017	two-attention-self-attention (ensemble)
+guotong1988
+75.223	82.716
+36
+May 21, 2017	MEMEN (ensemble)
+Eigen Technology & Zhejiang University
+https://arxiv.org/abs/1707.09098	75.370	82.658
+37
+Mar 09, 2017	ReasoNet (ensemble)
+MSR Redmond
+https://arxiv.org/abs/1609.05284	75.034	82.552
+38
+Aug 14, 2018	eeAttNet (single model)
+BBD NLP Team
+https://www.bbdservice.com	74.604	82.501
+38
+Jul 10, 2017	DCN+ (single model)
+Salesforce Research
+https://arxiv.org/abs/1711.00106	74.866	82.806
+38
+Feb 06, 2018	Jenga (single model)
+Facebook AI Research
+74.373	82.845
+38
+Oct 27, 2017	Unnamed submission by null
+74.489	82.312
+38
+Oct 31, 2017	SLQA (single model)
+Alibaba iDST NLP
+74.489	82.815
+39
+Jul 14, 2017	Mnemonic Reader (ensemble)
+NUDT and Fudan University
+https://arxiv.org/abs/1705.02798	74.268	82.371
+40
+Dec 23, 2017	S^3-Net (ensemble)
+Kangwon National University in South Korea
+74.121	82.342
+41
+Jul 25, 2017	Interactive AoA Reader (single model)
+Joint Laboratory of HIT and iFLYTEK Research
+73.639	81.931
+41
+Jul 29, 2017	SEDT (ensemble model)
+CMU
+https://arxiv.org/abs/1703.00572	74.090	81.761
+42
+Dec 14, 2017	Jenga (single model)
+Facebook AI Research
+73.303	81.754
+42
+Nov 06, 2017	Conductor-net (single)
+CMU
+https://arxiv.org/abs/1710.10504	73.240	81.933
+42
+Apr 22, 2017	SEDT+BiDAF (ensemble)
+CMU
+https://arxiv.org/abs/1703.00572	73.723	81.530
+42
+Feb 22, 2017	BiDAF (ensemble)
+Allen Institute for AI & University of Washington
+https://arxiv.org/abs/1611.01603	73.744	81.525
+42
+Jan 24, 2017	Multi-Perspective Matching (ensemble)
+IBM Research
+https://arxiv.org/abs/1612.04211	73.765	81.257
+42
+Jul 06, 2017	SSAE (ensemble)
+Tsinghua University
+74.080	81.665
+43
+May 01, 2017	jNet (ensemble)
+USTC & National Research Council Canada & York University
+https://arxiv.org/abs/1703.04617	73.010	81.517
+44
+Oct 22, 2017	Conductor-net (single)
+CMU
+72.590	81.415
+44
+Apr 17, 2018	Unnamed submission by null
+72.831	80.622
+44
+Nov 16, 2017	two-attention-self-attention (single model)
+guotong1988
+72.600	81.011
+44
+Apr 12, 2017	T-gating (ensemble)
+Peking University
+72.758	81.001
+44
+Sep 20, 2017	BiDAF + Self Attention (single model)
+Allen Institute for Artificial Intelligence
+https://arxiv.org/abs/1710.10723	72.139	81.048
+45
+Dec 15, 2017	S^3-Net (single model)
+Kangwon National University in South Korea
+71.908	81.023
+45
+Apr 17, 2018	Unnamed submission by null
+72.831	80.622
+46
+Mar 03, 2018	AVIQA (single model)
+aviqa team
+72.485	80.550
+47
+Nov 06, 2017	attention+self-attention (single model)
+guotong1988
+71.698	80.462
+48
+Nov 01, 2016	Dynamic Coattention Networks (ensemble)
+Salesforce Research
+https://arxiv.org/abs/1611.01604	71.625	80.383
+49
+Jul 14, 2017	smarnet (single model)
+Eigen Technology & Zhejiang University
+https://arxiv.org/abs/1710.02772	71.415	80.160
+49
+Apr 13, 2017	QFASE
+NUS
+71.898	79.989
+50
+Oct 27, 2017	M-NET (single)
+UFL
+71.016	79.835
+50
+Apr 22, 2018	MAMCN (single model)
+Samsung Research
+70.985	79.939
+50
+Jul 14, 2017	Mnemonic Reader (single model)
+NUDT and Fudan University
+https://arxiv.org/abs/1705.02798	70.995	80.146
+50
+May 23, 2018	AttReader (single)
+College of Computer & Information Science, SouthWest University, Chongqing, China
+71.373	79.725
+50
+Mar 24, 2017	jNet (single model)
+USTC & National Research Council Canada & York University
+https://arxiv.org/abs/1703.04617	70.607	79.821
+50
+Apr 02, 2017	Ruminating Reader (single model)
+New York University
+https://arxiv.org/abs/1704.07415	70.639	79.456
+50
+Mar 14, 2017	Document Reader (single model)
+Facebook AI Research
+https://arxiv.org/abs/1704.00051	70.733	79.353
+50
+Dec 28, 2016	FastQAExt
+German Research Center for Artificial Intelligence
+https://arxiv.org/abs/1703.04816	70.849	78.857
+50
+May 13, 2017	RaSoR (single model)
+Google NY, Tel-Aviv University
+https://arxiv.org/abs/1611.01436	70.849	78.741
+50
+Mar 08, 2017	ReasoNet (single model)
+MSR Redmond
+https://arxiv.org/abs/1609.05284	70.555	79.364
+51
+Apr 14, 2017	Multi-Perspective Matching (single model)
+IBM Research
+https://arxiv.org/abs/1612.04211	70.387	78.784
+52
+Aug 30, 2017	SimpleBaseline (single model)
+Technical University of Vienna
+69.600	78.236
+52
+Feb 05, 2018	SSR-BiDAF
+single model
+69.443	78.358
+53
+Apr 12, 2017	SEDT+BiDAF (single model)
+CMU
+https://arxiv.org/abs/1703.00572	68.478	77.971
+54
+Jun 25, 2017	PQMN (single model)
+KAIST & AIBrain & Crosscert
+68.331	77.783
+55
+Apr 12, 2017	T-gating (single model)
+Peking University
+68.132	77.569
+56
+Nov 28, 2016	BiDAF (single model)
+Allen Institute for AI & University of Washington
+https://arxiv.org/abs/1611.01603	67.974	77.323
+56
+Feb 22, 2018	Unnamed submission by null
+68.478	77.220
+57
+Feb 22, 2018	Unnamed submission by null
+68.425	77.077
+57
+Dec 28, 2016	FastQA
+German Research Center for Artificial Intelligence
+https://arxiv.org/abs/1703.04816	68.436	77.070
+57
+Jul 29, 2017	SEDT (single model)
+CMU
+https://arxiv.org/abs/1703.00572	68.163	77.527
+58
+Oct 26, 2016	Match-LSTM with Ans-Ptr (Boundary) (ensemble)
+Singapore Management University
+https://arxiv.org/abs/1608.07905	67.901	77.022
+58
+Jan 22, 2018	FABIR (Single Model)
+in review
+67.744	77.605
+59
+Sep 19, 2017	AllenNLP BiDAF (single model)
+Allen Institute for AI
+http://allennlp.org/	67.618	77.151
+60
+Feb 05, 2017	Iterative Co-attention Network
+Fudan University
+67.502	76.786
+61
+Jan 03, 2018	newtest
+single model
+66.527	75.787
+61
+Nov 01, 2016	Dynamic Coattention Networks (single model)
+Salesforce Research
+https://arxiv.org/abs/1611.01604	66.233	75.896
+62
+Feb 24, 2018	Unnamed submission by null
+65.992	75.469
+63
+Jan 10, 2018	Unnamed submission by null
+64.796	74.272
+64
+Dec 09, 2017	Unnamed submission by ravioncodalab
+64.439	73.921
+64
+Oct 26, 2016	Match-LSTM with Bi-Ans-Ptr (Boundary)
+Singapore Management University
+https://arxiv.org/abs/1608.07905	64.744	73.743
+65
+Feb 19, 2017	Attentive CNN context with LSTM
+NLPR, CASIA
+63.306	73.463
+66
+Nov 02, 2016	Fine-Grained Gating
+Carnegie Mellon University
+https://arxiv.org/abs/1611.01724	62.446	73.327
+66
+Sep 21, 2017	OTF dict+spelling (single)
+University of Montreal
+https://arxiv.org/abs/1706.00286	64.083	73.056
+67
+Sep 21, 2017	OTF spelling (single)
+University of Montreal
+https://arxiv.org/abs/1706.00286	62.897	72.016
+68
+Sep 21, 2017	OTF spelling+lemma (single)
+University of Montreal
+https://arxiv.org/abs/1706.00286	62.604	71.968
+69
+Sep 28, 2016	Dynamic Chunk Reader
+IBM
+https://arxiv.org/abs/1610.09996	62.499	70.956
+70
+Aug 27, 2016	Match-LSTM with Ans-Ptr (Boundary)
+Singapore Management University
+https://arxiv.org/abs/1608.07905	60.474	70.695
+71
+Sep 11, 2018	Unnamed submission by Will_Wu
+59.058	69.436
+72
+Jan 10, 2018	Unnamed submission by null
+58.764	69.276
+73
+Aug 27, 2016	Match-LSTM with Ans-Ptr (Sentence)
+Singapore Management University
+https://arxiv.org/abs/1608.07905	54.505	67.748
+74
+Oct 26, 2018	Unnamed submission by minjoon
+52.533	62.757

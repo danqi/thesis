@@ -1,0 +1,167 @@
+\documentclass[12pt]{report}
+\usepackage{suthesis}
+%\documentstyle[12pt,suthesis]{report}
+
+% -- Imports --
+% (general libraries)
+\usepackage{times,latexsym,amsfonts,amssymb,amsmath,graphicx,url,bbm,rotating}
+\usepackage{multirow,hhline,stmaryrd,bussproofs,mathtools,siunitx}
+\usepackage{booktabs,xcolor,csquotes,calligra}
+% (custom libraries)
+\usepackage{afterpage}
+\usepackage{longtable}
+\usepackage{fitch}
+% (inline references)
+\usepackage{natbib}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=.,
+    linkcolor=.,
+    urlcolor=blue
+}
+
+\usepackage{epigraph}
+\renewcommand{\epigraphsize}{\normalsize}
+\setlength{\epigraphwidth}{0.9\textwidth}
+
+% (tikz)
+\usepackage{soul}
+\definecolor{light-yellow}{RGB}{255, 255, 153}
+\sethlcolor{light-yellow}
+\usepackage{tikz}
+\usepackage{tikz-dependency,pifont}
+\usetikzlibrary{shapes.arrows,chains,positioning,automata,trees,calc}
+\usetikzlibrary{patterns,matrix}
+\usetikzlibrary{decorations.pathmorphing,decorations.markings}
+% (print algorithms)
+\usepackage[ruled,lined,linesnumbered]{algorithm2e}
+% (custom)
+\input std-macros.tex
+\input macros.tex
+
+% (paper compilation hacks)
+\def\newcite#1{\citet{#1}}
+\def\cite#1{\citep{#1}}
+%\def\newcite#1{\textcite{#1}}
+%\def\cite#1{\autocite{#1}}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.4}
+
+
+% Common hyphenations
+\hyphenation{Text-Runner}
+\hyphenation{Verb-Ocean}
+\hyphenation{Raj-pur-kar}
+
+%\bibliographystyle{plainnat}
+
+
+% Comments
+\usepackage{xspace}
+\usepackage{xargs} % commandx
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{marginnote}
+\usepackage{color}
+\definecolor{darkgreen}{RGB}{0,100,0}
+
+% Inline comments useful for tables and figures.
+\newcommandx{\icmtl}[2][1=]{\todo[inline]{DC: #2}\xspace}
+\newcommandx{\icmtm}[2][1=]{\todo[inline]{CM: #2}\xspace}
+
+% Comments for other places.
+\newcommandx{\cmtl}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!10,bordercolor=blue,#1]{DC: #2}\xspace}
+\newcommandx{\cmtm}[2][1=]{\todo[linecolor=red,backgroundcolor=red!10,bordercolor=red,#1]{CM: #2}\xspace}
+
+\newcommand\cmb[1]{\marginpar{\tiny\raggedright\textcolor{blue}{\textsf{ DC\@: #1}}}}
+\newcommand\cmm[1]{\marginpar{\tiny\raggedright\textcolor{red}{\textsf{\bfseries CM\@: #1}}}}
+
+\usepackage{enumerate}
+
+\setcounter{secnumdepth}{3}
+
+\usepackage{footnote}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
+
+\usepackage{xpinyin}
+
+% -- Document --
+\begin{document}
+
+% Title
+\title{Neural Reading Comprehension and Beyond}
+\author{Danqi Chen}
+\principaladviser{Christopher D. Manning}
+\firstreader{Dan Jurafsky}
+\secondreader{Percy Liang}
+\thirdreader{Luke Zettlemoyer}
+
+% Preface
+\beforepreface
+\input preface.tex
+\input ack.tex
+\afterpreface
+\hypersetup{linkcolor=magenta}
+
+
+% -- Sections --
+% Introduction
+\chapter{Introduction}
+\label{chapter:intro}
+\input intro.tex
+
+\part{Neural Reading Comprehension: Foundations}
+
+\chapter{An Overview of Reading Comprehension}
+\label{chapter:rc-overview}
+\input chapters/rc_overview/intro.tex
+\input chapters/rc_overview/history.tex
+\input chapters/rc_overview/task.tex
+\input chapters/rc_overview/discussions.tex
+
+\chapter{Neural Reading Comprehension Models}
+\label{chapter:rc-models}
+\input chapters/rc_models/intro.tex
+\input chapters/rc_models/feature_classifier.tex
+\input chapters/rc_models/sar.tex
+\input chapters/rc_models/experiments.tex
+\input chapters/rc_models/advances.tex
+
+\chapter{The Future of Reading Comprehension}
+\label{chapter:rc-future}
+\input chapters/rc_future/overview.tex
+\input chapters/rc_future/datasets.tex
+\input chapters/rc_future/models.tex
+\input chapters/rc_future/questions.tex
+
+\part{Neural Reading Comprehension: Applications}
+
+\chapter{Open Domain Question Answering}
+\label{chapter:openqa}
+\input chapters/openqa/intro.tex
+\input chapters/openqa/related_work.tex
+\input chapters/openqa/system.tex
+\input chapters/openqa/evaluation.tex
+\input chapters/openqa/future.tex
+% \input chapters/openqa/future.tex
+
+\chapter{Conversational Question Answering}
+\label{chapter:coqa}
+\input chapters/coqa/intro.tex
+\input chapters/coqa/related_work.tex
+\input chapters/coqa/dataset.tex
+\input chapters/coqa/models.tex
+\input chapters/coqa/experiments.tex
+\input chapters/coqa/discussions.tex
+
+% Conclusion
+\chapter{Conclusions}
+\label{chapter:conclusions}
+\input conclude.tex
+
+% Bibliography
+\bibliographystyle{acl_natbib_nourl}
+\bibliography{ref}
+
+\end{document}
