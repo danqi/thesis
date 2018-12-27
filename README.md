@@ -17,4 +17,4 @@ This thesis is built on top of [Gabor Angeli's thesis template](https://github.c
 
 ### Contact
 
-If you have any comments or questions about the thesis, please email <danqi@cs.stanford.edu> or use pull requests.
+If you have any comments or questions about the thesis, please use pull requests or email <danqi@cs.stanford.edu>.
